@@ -1,0 +1,243 @@
+{
+  "name": "Category Description",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "deepseek/deepseek-r1-distill-llama-70b:free",
+        "system_prompt": "Говори со мной в стиле Йоды",
+        "message": "Привет магистр",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-openrouter.openRouter",
+      "typeVersion": 1,
+      "position": [
+        96,
+        -304
+      ],
+      "id": "29cfc672-75c9-4a68-a76a-5dd6a1dbf083",
+      "name": "OpenRouter",
+      "credentials": {
+        "openRouterApi": {
+          "id": "dxT5n96fXsHidhB5",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "589100043",
+        "text": "={{ $json.response }}",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Агрокалькулятор",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {
+          "resize_keyboard": true,
+          "one_time_keyboard": true
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        256,
+        -256
+      ],
+      "id": "95a25be1-7e96-4f31-b470-d21e444f2dbb",
+      "name": "Send a text message",
+      "webhookId": "cd87436d-5a83-4d05-bcec-5c58eeeb7744",
+      "credentials": {
+        "telegramApi": {
+          "id": "SpfCPkEwWJcy06LT",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -320
+      ],
+      "id": "940511ec-1271-48d4-8a30-9293a2ae1400",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        400,
+        -272
+      ],
+      "id": "b96b4d11-6ede-4812-88ba-71d0a4ea13d2",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "b09d15c5-a763-4457-a297-6a2c2adf82ac",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -608,
+        -48
+      ],
+      "id": "5be294a3-f36b-4510-8fee-84bbf8dde4d3",
+      "name": "Webhook",
+      "webhookId": "b09d15c5-a763-4457-a297-6a2c2adf82ac"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "=postCategory",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "982f4c7a-e06c-4710-ae5a-b85a339ab19e"
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "none"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -400,
+        -48
+      ],
+      "id": "036ebdea-219c-4c63-82b3-65ffd5521376",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "24e3fded-16bf-4830-b83b-8b263065e0e8",
+              "name": "action",
+              "value": "={{ $json.body.action }}",
+              "type": "string"
+            },
+            {
+              "id": "57ccdcd3-8e31-47e0-bd88-4359d87ac1ef",
+              "name": "data",
+              "value": "={{ $json.body.data }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -176,
+        -48
+      ],
+      "id": "443f861e-54cf-468d-a506-97c1a53323bb",
+      "name": "Edit Fields1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenRouter": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f05b6b1d-7fc5-4da4-9387-782156714f7f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "12bed62275b8d1fc61b749789e292d4b03d3ad9b1c5b2243c7ef2a7262e260fe"
+  },
+  "id": "ywkBpySWBqXbg5lu",
+  "tags": []
+}

@@ -1,0 +1,426 @@
+{
+  "name": "Google",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        -64
+      ],
+      "id": "840f0981-e13b-415a-a567-5c9e4b3f92d3",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appkQQyOWkW17zrUz",
+          "mode": "list",
+          "cachedResultName": "Semena.cc",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblq1rkXNWLwAUGOl",
+          "mode": "list",
+          "cachedResultName": "Category",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz/tblq1rkXNWLwAUGOl"
+        },
+        "filterByFormula": "({Status} = \"Todo\")",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -240,
+        -64
+      ],
+      "id": "f381b920-f14c-493f-8d72-4d72444d9fcb",
+      "name": "Search records",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "ebsdPc0yHdNJ8JBm",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appkQQyOWkW17zrUz",
+          "mode": "list",
+          "cachedResultName": "Semena.cc",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblq1rkXNWLwAUGOl",
+          "mode": "list",
+          "cachedResultName": "Category",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz/tblq1rkXNWLwAUGOl"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Done",
+            "id": "={{ $('Search records').item.json.id }}",
+            "Text": "={{ $json.output }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "category_id",
+              "displayName": "category_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "category_name",
+              "displayName": "category_name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "keywords",
+              "displayName": "keywords",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Text",
+              "displayName": "Text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Todo",
+                  "value": "Todo"
+                },
+                {
+                  "name": "In progress",
+                  "value": "In progress"
+                },
+                {
+                  "name": "Done",
+                  "value": "Done"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        512,
+        80
+      ],
+      "id": "7e3a07b3-5e42-4b46-b6ea-c9a5c1f8f3c4",
+      "name": "Update record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "ebsdPc0yHdNJ8JBm",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -32,
+        -48
+      ],
+      "id": "b38c10f0-23ec-4062-9632-49050f98361c",
+      "name": "Loop Over Items",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -224,
+        128
+      ],
+      "id": "d195f33e-cb27-4ddb-b85a-611ff80e75ad",
+      "name": "Wait",
+      "webhookId": "72542e96-13bc-4f0d-a0b6-60f55ad4d703"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Напиши мне одно предложение для категории товаров с названием  {{ $json.category_name }}",
+        "options": {
+          "systemMessage": "Ты — опытный SEO-специалист с глубокими знаниями в поисковой оптимизации, включая on-page SEO, ключевые слова, мета-теги, структуру контента и пользовательский опыт. Твоя задача — анализировать запрос пользователя и генерировать оптимизированный текст.\n\n\n***Шаги, которые ты ДОЛЖЕН выполнить:***\n1. Используй инструмент HTTP Request для GET-запроса по ссылке.\n2. Из полученного HTML извлеки:\n   - Основное описание категории (текст из <h1>, описание категории в блоке с классом col и вложенными в него классами text_seo_p)\n3. На основе этого примера сгенерируй один оптимизированный абзац для пользователя строго в формате HTML: начинай с <p> и заканчивай </p>. Не добавляй заголовки, списки, нумерованные пункты, дополнительные абзацы, объяснения или любой другой текст вне тега <p>.\n\nИспользуй естественный, убедительный язык, интегрируй релевантные ключевые слова органично, делай текст полезным и ориентированным на читателя. Температура генерации — 0.5 (баланс между креативностью и точностью), максимум токенов на вывод — 300.\n\nФормат output — структурированный текст где заголовки, параграфы и списки обернуты в HTML теги h2 и h3, p, ul, li. Вывод должен быть чисты, без лишних тегов и символов, подготовленный для вставки в БД."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "07303218-c2f7-44ab-b3d6-42978d6679bc",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "openai/gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "openai/gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {
+          "maxTokens": 100,
+          "temperature": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -224,
+        320
+      ],
+      "id": "bcbfa20d-3e55-4daa-9e8f-1d3b43ba4d66",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "NoJqob1pU3Ie5i7O",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Loop Over Items').item.json.compatitor_link }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "user-agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 YaBrowser/25.10.0.0 Safari/537.36"
+            },
+            {
+              "name": "referer",
+              "value": "https://www.google.com/"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        },
+        "optimizeResponse": true,
+        "responseType": "html",
+        "cssSelector": ".text_seo_p",
+        "onlyContent": true
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.3,
+      "position": [
+        336,
+        256
+      ],
+      "id": "f210fbf0-2f28-48cf-bcb2-4fb0ecfe9903",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Read URL content in Jina AI",
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.jinaAiTool",
+      "typeVersion": 1,
+      "position": [
+        432,
+        352
+      ],
+      "id": "94b13f76-8d22-41e2-9303-261691a88c2d",
+      "name": "Read URL content in Jina AI",
+      "credentials": {
+        "jinaAiApi": {
+          "id": "pdHKwxh6e9Ubzh2b",
+          "name": "Jina AI account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Search records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search records": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update record": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read URL content in Jina AI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1b6e310f-6241-48e0-a4c1-3134e63c2ce4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "12bed62275b8d1fc61b749789e292d4b03d3ad9b1c5b2243c7ef2a7262e260fe"
+  },
+  "id": "dK1Ajs8Tl7mhRwTk",
+  "tags": []
+}
