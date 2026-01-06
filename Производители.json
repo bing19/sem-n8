@@ -1,0 +1,1704 @@
+{
+  "name": "Производители",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        -288
+      ],
+      "id": "927287b2-1b27-4b95-bbf5-97583a717111",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appkQQyOWkW17zrUz",
+          "mode": "list",
+          "cachedResultName": "Semena.cc",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblq1rkXNWLwAUGOl",
+          "mode": "list",
+          "cachedResultName": "Category",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz/tblq1rkXNWLwAUGOl"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Done",
+            "id": "={{ $('Search in Table Category').item.json.id }}",
+            "Text": "={{ $json.output }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "category_id",
+              "displayName": "category_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "category_name",
+              "displayName": "category_name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "keywords",
+              "displayName": "keywords",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Text",
+              "displayName": "Text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Todo",
+                  "value": "Todo"
+                },
+                {
+                  "name": "In progress",
+                  "value": "In progress"
+                },
+                {
+                  "name": "Done",
+                  "value": "Done"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        80,
+        -1792
+      ],
+      "id": "a773fe4a-2d3e-4d4a-b0d1-f0ed75e2e727",
+      "name": "Update record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "ebsdPc0yHdNJ8JBm",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Напиши мне текст для категории.\nТема категории и ее название: {{ $json.category_name }}, но по тексту делай упор не на сами семена, а на культуру. Описывай культуру, ее гибриды, и сорта.\nКлючевые слова: {{ $json.keywords }}\nОбъём: 2500–4000 символов (без воды).\n\n\n***Получи текст страницы конкурента***\n\nСначала запроси у jina.ai {{ $('Loop').item.json.compatitor_link }}.\nИзвлеки из Markdown:\n- Основное описание категории, которое находиться в теге с классом .row mt-8 .сol, а сам текст описания содержиться во вложеных тегах с классом .text_seo_p . Используй этот пример для дальнейшей генерации текста категории.\n\nДля основы генерации используй следующую структуру текста\n\n***Структура текста***\n\nНачни текст с определения что это за категория, какие ее свойства, особенности. Данный вступительный блок начни с параграфа, без загаловка перед ним. \n\nВот пример: Детерминантные томаты (низкорослые) — это компактные сорта и гибриды с ограниченным ростом, которые завершают вершкование после 4–6 кистей. Они подходят для открытого грунта в большинстве регионов Украины, небольших дачных участков и фермерских полей. Купить семена детерминантных томатов стоит за стабильную раннюю урожайность, простоту ухода и отличную транспортабельность плодов.\n\nЕще один пример: Арбузы — это теплолюбивая бахчевая культура, представленная раннеспелыми, среднеспелыми и поздними сортами и гибридами с мощной плетистой формой роста. Они предназначены для выращивания в открытом грунте и под временными укрытиями в южных и центральных регионах Украины, а также в зонах с достаточным суммарным теплом. Купить семена арбуза стоит за высокую урожайность, отличные вкусовые качества мякоти, хорошую лежкость и устойчивость современных гибридов к стрессовым условиям выращивания.\n\nБлок: \"Характеристика культуры\"\n\nБлок: \"Требования к условиям выращивания\"\n\nБлок: \"Почему стоит купить у нас\"\n— Наши основные преимущества это оригинальные семена, которые мы закупаем от официальных дистрибьюторов. Оригинальные упаковки и упаковки фасованные нашим магазином. Консультация агронома по подбору семян и по вопросам технологии выращивания.\n— текст можешь перефразировать, но используй строго наши преимущества, от себя ничего не придумывай.\n— здесь можешь применить ключевые слова со словом семена.\nНе применяй именно такую формулироваку как в данном примере: \"Официальные дистрибьюторы. Мы работаем только с проверенными производителями, поставляя оригинальные партии напрямую, без посредников.\" Так как мы не поставляем на прямую.\n\nБлок: Часто задаваемые вопросы  (3–5 вопросов) строго по теме категории, например:\n — какие гибриды дают лучший урожай?\n — какие подходят для теплицы или открытого грунта?\n — когда сеять?\n — как выбрать гибрид под регион?\n — как хранить семена?\n\nПосле генерации текста сделай качественный перевод всего теста на украинский язык.",
+        "options": {
+          "systemMessage": "=Ты — SEO-специалист с глубокими знаниями в поисковой оптимизации, включая on-page SEO. Твоя задача — создать 100 % уникальное, SEO-оптимизированное описание для категорий интернет магазина. Текст должен ранжироваться в 2026-2030 году и попадать в Google AI Overview, Featured Snippet и ответы GPT-моделей.\n\nТекст должен полностью соответствовать требованиям Google Helpful Content, EEAT, AI Overviews и интенту транзакционных запросов. По тексту 1-3 раза примени переданные мной ключевые слова, один раз в точном соответствии, остальные можно склонять, делать с разрывом. Также подбери подходящие LSI фразы.\n\nИспользуй естественный, убедительный язык, интегрируй релевантные ключевые слова органично, делай текст полезным и ориентированным на читателя. \n\nФормат output в JSON \n{\n  \"ru\": \"структурированный текст где заголовки, параграфы и списки обернуты в HTML теги h2 и h3, p, ul, li. Вывод должен быть чисты, без лишних тегов и символов, подготовленный для вставки в БД\",\n  \"ua\": \"Перевод ru версии на украинский язык с сохранением всей структуры и HTML разметки\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -336,
+        -1792
+      ],
+      "id": "49ac11c5-67c8-421a-91a7-0107e803c542",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "openai/gpt-5.1",
+          "mode": "list",
+          "cachedResultName": "openai/gpt-5.1"
+        },
+        "builtInTools": {},
+        "options": {
+          "maxTokens": 5000,
+          "temperature": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -400,
+        -1568
+      ],
+      "id": "3f3dd29d-bd25-4295-a4e5-b23f4139be5a",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "NoJqob1pU3Ie5i7O",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', ``, 'string') }}",
+        "simplify": false,
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.jinaAiTool",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        -1504
+      ],
+      "id": "ee586cdf-b28e-4f9d-addb-29fd03e49456",
+      "name": "Read URL content in Jina AI",
+      "credentials": {
+        "jinaAiApi": {
+          "id": "pdHKwxh6e9Ubzh2b",
+          "name": "Jina AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appkQQyOWkW17zrUz",
+          "mode": "list",
+          "cachedResultName": "Semena.cc",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbleTqK4OwnTCsOq5",
+          "mode": "list",
+          "cachedResultName": "Manufacturer",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz/tbleTqK4OwnTCsOq5"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Done",
+            "Text": "={{ $json.text.ru }}",
+            "Text_ua": "={{ $json.text.ua }}",
+            "manufacturer_id": "={{ $json.manufacturer_id }}",
+            "title": "={{ $json.text.meta_title_ru }}",
+            "description": "={{ $json.text.meta_description_ru }}",
+            "title_ua": "={{ $json.text.meta_title_ua }}",
+            "description_ua": "={{ $json.text.meta_description_ua }}"
+          },
+          "matchingColumns": [
+            "manufacturer_id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "manufacturer_id",
+              "displayName": "manufacturer_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "keywords",
+              "displayName": "keywords",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "link",
+              "displayName": "link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Text",
+              "displayName": "Text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Text_ua",
+              "displayName": "Text_ua",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "title_ua",
+              "displayName": "title_ua",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "description_ua",
+              "displayName": "description_ua",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Todo",
+                  "value": "Todo"
+                },
+                {
+                  "name": "In progress",
+                  "value": "In progress"
+                },
+                {
+                  "name": "Done",
+                  "value": "Done"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Success",
+              "displayName": "Success",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Success",
+                  "value": "Success"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Error_message",
+              "displayName": "Error_message",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "date_update",
+              "displayName": "date_update",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "semenacc_link",
+              "displayName": "semenacc_link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1152,
+        -544
+      ],
+      "id": "9fe06792-a4ff-4aad-9e14-6770c7264bbf",
+      "name": "Update record1",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "ebsdPc0yHdNJ8JBm",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={ \n  \"manufacturer_id\": {{$node[\"Edit Fields1\"].json.fields.manufacturer_id}},\n  \"text\": {{ $json.output }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        992,
+        -544
+      ],
+      "id": "d2260fb9-d48b-427e-9d63-8f2cc6b4c45c",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "openai/gpt-5.1",
+          "mode": "list",
+          "cachedResultName": "openai/gpt-5.1"
+        },
+        "builtInTools": {},
+        "options": {
+          "maxTokens": 10000,
+          "temperature": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        688,
+        -368
+      ],
+      "id": "7b862000-cbfb-4b7d-b833-e20f75c6f73c",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "NoJqob1pU3Ie5i7O",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', ``, 'string') }}",
+        "simplify": false,
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.jinaAiTool",
+      "typeVersion": 1,
+      "position": [
+        832,
+        -352
+      ],
+      "id": "26cc3f69-6931-42b0-aeef-107e934c62db",
+      "name": "Read URL content in Jina AI1",
+      "credentials": {
+        "jinaAiApi": {
+          "id": "pdHKwxh6e9Ubzh2b",
+          "name": "Jina AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "openai/gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "openai/gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {
+          "maxTokens": 500,
+          "temperature": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        672,
+        -800
+      ],
+      "id": "0c5e70f3-03d5-4a53-8912-3721b99ea2fc",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "NoJqob1pU3Ie5i7O",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://supermarket-nasinnia.ua/module/productdescriptionai/update?token=p9tQWDtiks6yDJcxE28tQOqK",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\"manufacturer_id\": \"{{ $('Edit Fields').item.json.manufacturer_id }}\",\"text\": {\"ru\": \"{{ $('Edit Fields').item.json.text.ru }}\",\"ua\": \"{{ $('Edit Fields').item.json.text.ua }}\",\"meta_title_ru\": \"{{ $('Edit Fields').item.json.text.meta_title_ru }}\",\"meta_title_ua\": \"{{ $('Edit Fields').item.json.text.meta_title_ua }}\",\"meta_description_ru\": \"{{ $('Edit Fields').item.json.text.meta_description_ru }}\",\"meta_description_ua\": \"{{ $('Edit Fields').item.json.text.meta_description_ua }}\"}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1392,
+        -544
+      ],
+      "id": "ada33941-f7d3-4b32-8fb9-a53377d59ad3",
+      "name": "HTTP Request",
+      "notesInFlow": false,
+      "alwaysOutputData": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e414199a-67ed-4fca-8283-c81d398a1aa6",
+              "leftValue": "={{ $json.success }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1888,
+        -544
+      ],
+      "id": "3cf18026-0c5a-4b53-af46-7a0530048da6",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appkQQyOWkW17zrUz",
+          "mode": "list",
+          "cachedResultName": "Semena.cc",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbleTqK4OwnTCsOq5",
+          "mode": "list",
+          "cachedResultName": "Manufacturer",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz/tbleTqK4OwnTCsOq5"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "manufacturer_id": "={{ $('Update record1').item.json.fields.manufacturer_id }}",
+            "Success": "Error",
+            "Error_message": "={{ $json.message }}"
+          },
+          "matchingColumns": [
+            "manufacturer_id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "manufacturer_id",
+              "displayName": "manufacturer_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "keywords",
+              "displayName": "keywords",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "link",
+              "displayName": "link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Text",
+              "displayName": "Text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Text_ua",
+              "displayName": "Text_ua",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Todo",
+                  "value": "Todo"
+                },
+                {
+                  "name": "In progress",
+                  "value": "In progress"
+                },
+                {
+                  "name": "Done",
+                  "value": "Done"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Success",
+              "displayName": "Success",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Success",
+                  "value": "Success"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Error_message",
+              "displayName": "Error_message",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "semenacc_link",
+              "displayName": "semenacc_link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        2224,
+        -464
+      ],
+      "id": "16c963b1-b492-425a-9781-79b021162386",
+      "name": "Error",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "ebsdPc0yHdNJ8JBm",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем все элементы (обычно один)\nconst list = items.map(item => {\n  const json = item.json;\n\n  if (json.error) {\n    let message = \"Ошибка сервера\";\n\n    try {\n      let errorText = json.error.message || \"\";\n\n      // Шаг 1: Убираем префикс вроде \"400 - \"\n      if (errorText.includes(' - ')) {\n        errorText = errorText.split(' - ')[1];\n      }\n\n      // Шаг 2: Убираем внешние кавычки, если есть\n      errorText = errorText.trim();\n      if (errorText.startsWith('\"') && errorText.endsWith('\"')) {\n        errorText = errorText.slice(1, -1);\n      }\n\n      // Шаг 3: Самое важное — расэкранируем слеши (\\\\\\\" → \")\n      errorText = errorText.replace(/\\\\\"/g, '\"').replace(/\\\\\\\\/g, '\\\\');\n\n      // Шаг 4: Теперь парсим как нормальный JSON\n      const parsed = JSON.parse(errorText);\n\n      // Шаг 5: Берём только текст ошибки\n      message = parsed.error || parsed.message || \"Неизвестная ошибка\";\n    } catch (e) {\n      // Если всё сломалось — просто чистим строку вручную\n      message = (json.error.message || \"Ошибка\")\n        .replace(/^\\d+\\s*-\\s*/, '')   // убираем \"400 - \"\n        .replace(/^\"+|\"+$/g, '')      // убираем кавычки в начале и конце\n        .replace(/\\\\\"/g, '\"')         // убираем экранирование\n        .trim();\n    }\n\n    return {\n      json: {\n        success: false,\n        message: message\n      }\n    };\n  }\n\n  // Если ошибки нет — значит, успешный ответ\n  // Предполагаем, что API возвращает что-то вроде { success: true, message: \"...\" } или просто данные\n  if (json.success !== undefined) {\n    return {\n      json: {\n        success: json.success,\n        message: json.message || \"Успешно\"\n      }\n    };\n  }\n\n  // Если API возвращает просто данные (без success/message)\n  return {\n    json: {\n      success: true,\n      message: \"Успешно выполнено\"\n    }\n  };\n});\n\nreturn list;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        -544
+      ],
+      "id": "7e249388-651b-410a-9162-54233852231d",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appkQQyOWkW17zrUz",
+          "mode": "list",
+          "cachedResultName": "Semena.cc",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbleTqK4OwnTCsOq5",
+          "mode": "list",
+          "cachedResultName": "Manufacturer",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz/tbleTqK4OwnTCsOq5"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "manufacturer_id": "={{ $('Update record1').item.json.fields.manufacturer_id }}",
+            "date_update": "={{ $now }}",
+            "Success": "Success"
+          },
+          "matchingColumns": [
+            "manufacturer_id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "manufacturer_id",
+              "displayName": "manufacturer_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "keywords",
+              "displayName": "keywords",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "link",
+              "displayName": "link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Text",
+              "displayName": "Text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Text_ua",
+              "displayName": "Text_ua",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Todo",
+                  "value": "Todo"
+                },
+                {
+                  "name": "In progress",
+                  "value": "In progress"
+                },
+                {
+                  "name": "Done",
+                  "value": "Done"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Success",
+              "displayName": "Success",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Success",
+                  "value": "Success"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Error_message",
+              "displayName": "Error_message",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "date_update",
+              "displayName": "date_update",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "semenacc_link",
+              "displayName": "semenacc_link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        2224,
+        -672
+      ],
+      "id": "55431c91-100c-4894-9664-13e894171117",
+      "name": "Success",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "ebsdPc0yHdNJ8JBm",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appkQQyOWkW17zrUz",
+          "mode": "list",
+          "cachedResultName": "Semena.cc",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbleTqK4OwnTCsOq5",
+          "mode": "list",
+          "cachedResultName": "Manufacturer",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz/tbleTqK4OwnTCsOq5"
+        },
+        "filterByFormula": "({Status} = \"Todo\")",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -336,
+        -288
+      ],
+      "id": "43b22c73-1970-4f85-926c-5b912575379a",
+      "name": "Search in Table Category",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "ebsdPc0yHdNJ8JBm",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Напиши 5 слов про {{ $json.fields.name }}.\n\nПосле генерации текста сделай качественный перевод всего теста на украинский язык.",
+        "options": {
+          "systemMessage": "=ОТВЕТЬ ИСКЛЮЧИТЕЛЬНО одним валидным JSON-объектом в следующем формате:\n\n{\n  \"ru\": \"структурированный текст где заголовки, параграфы и списки обернуты в HTML теги h2 и h3, p, ul, li. Вывод должен быть чисты, без лишних тегов и символов, подготовленный для вставки в БД\",\n  \"ua\": \"Полный переведенный текст на укрианский язык, с сохранением всей структуры и HTML разметки\"\n}\n\nОтвет должен быть ТОЛЬКО JSON, без markdown-обёрток вроде ```json, без преамбулы и пост-текста. JSON должен быть валидным и парсируемым."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        672,
+        -960
+      ],
+      "id": "6c10633f-28d3-429b-b202-7962d8c0b12f",
+      "name": "Тест ИИ"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2384,
+        -464
+      ],
+      "id": "f46f0507-ae57-43da-a6b5-93d4761d5007",
+      "name": "No Operation, do nothing1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2384,
+        -672
+      ],
+      "id": "e92e4571-c41c-47a7-a40c-63c33cae4008",
+      "name": "No Operation, do nothing2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Напиши мне текст для страницы производителя.\nНазвание компании производителя: {{ $json.fields.name }}.\nКлючевые слова: {{ $json.fields.keywords }}\nОбъём: 1500–3000 символов (без воды).\n\n***Проанализируй страницу на нашем сайте, чтобы верно идентифицировать производителя и товары, которые он предлагает***\n\nСначала запроси у jina.ai {{ $json.fields.link }}.\nИзвлеки из Markdown:\n- Список товаро находиться в теге с классом .product_list . Используй эти данные чтобы верно идентифицировать производителя и товары, которые он предлагает.\n\nДля основы генерации используй следующую структуру текста\n\n***Структура текста***\n\nНачни текст с определения что это за производитель, какую продукцию он производит. Данный вступительный блок начни с параграфа, без загаловка перед ним. \n\nВот пример: Компания Байер – это международная организация, которая долгое время ведет успешную деятельность в области охраны здоровья и сельского хозяйства. Вся продукция фирмы создана для заметного улучшения качества жизни человека, что неоднократно доказано многочисленными исследованиями и практикой. В производстве используются только тщательно проверенные компоненты, которые при высокой эффективности полностью безопасны для окружающей среды. Качество готовой продукции подтверждено международными сертификатами, выданными по результатам масштабных лабораторных исследований и специальных тестов. Это и позволило Bayer заслужить безупречную репутацию, получить неподдельное доверие со стороны потребителя.\n\nЕще один пример: Компания Энза Заден (Enza Zaden) основана в 1938 году и с тех пор успешно и динамично развивается, осуществляя свою деятельность на рынке семян овощных культур. За это время компания вошла в пятерку самых крупных мировых производителей. Компания осуществляет селекцию, производство и продажу семян овощных культур в более 90 странах мира. Ассортимент Энза Заден насчитывает более 800 сортов и гибридов. Традиционно сильные направления селекции компании (томаты, перцы, огурцы и салаты) дополняются новыми предложениями для закрытого и открытого грунта, а именно дыни, лука, цветной капусты, зеленных культур.\n\nЕще один пример: \"Syngenta\" - одна из ведущих мировых компаний, которая объединяет более 30 000 специалистов в 90 странах для достижения одной цели: раскрыть потенциал растения.\n\nЕще один приме: «Сингента» –  мировой лидер в прозводстве СЗР и семян. Компания в современном облике была создана в конце 2000-го года как результат слияния агроподразделений компаний «Новартис» и «АстраЗенека», более известными в фармацевтической отрасли, а уже 01.01.2001 была зарегистрирована ООО «Сингента» в Украине.\nВместе с производством семян компания интегрирует весь цикл работы с ними: селекция, производство, подготовка и продажи. \n\nБлок: \"Основные направления\"\n\nВ данном блоке опиши основные направления товарных категорий компании производителя. Не упоминай в данном блоке конкретные товары.\n\nБлок: \"Заказывайте продукцию от компании {{ $json.fields.name }}\"\n\n\"Супермаркет Семян\" занимает значительную долю в дистрибуции [перечисление 2-5 товарных категорий, которые у нас представлены на сайте по данному производителю, кратко] {{ $json.fields.name }} в Украине. \n\n— Наши основные преимущества это оригинальные семена, агрохимия которые мы закупаем от официальных дистрибьюторов. \n- Оригинальные упаковки и упаковки фасованные нашим магазином. Если это производитель химии, и у товара в фасовке доступна только крупная тара, от 5 литров, это значит, что вы не перефасовываем данные товары, и писать тогда про это не нужно. \n- Консультация агронома по подбору семян и по вопросам технологии выращивания.\n— текст можешь перефразировать, используй строго наши преимущества, но только те, которые будут уместны к продукции представленной производителем.\n— здесь можешь применить ключевые слова.\n\nНе применяй именно такую формулироваку как в данном примере: \"Официальные дистрибьюторы. Мы работаем только с проверенными производителями, поставляя оригинальные партии напрямую, без посредников.\" Так как мы не поставляем на прямую.\n\n**Генерация мета тегов**\n\nСоздай эффективные мета-теги.\nВходные данные:\nНазвание компании: {{ $json.fields.name }}.\nДанные страницы: Используй ранее загруженные данные со страницы с помощью jina.ai.\n\nНа основе этих данных сгенерируй:\n\nTitle: Уникальный заголовок страницы, включающий название компании, ключевые слова, и призыв к покупке. Длина: 50-60 символов. \nНапример: если это производитель по продаже семян, тогда title делай по шаблону (Купить семена [овощей, зелени, салата] [название компании] | Semena.cc). \nПример 1: Купить семена Takii Seeds | Semena.cc\nПример 2: Купить семена Hem Zaden Голландия | Semena.cc\nПример 3: Купить семена овощей Hortus | Semena.cc\nПример 4: Купить семена цветов PanAmerican Seeds, США | Semena.cc\nПример 5: Benary — семена цветов (Германия) | Купить в Украине\nПример 6: Clause (Клоз) — семена овощных культур из Франции | Купить в Украине\nПример 7: Clause (Клоз) — профессиональные семена овощей | Купить в Украине\n\nЕсли это агрохимия, или удобрения ([название компании] – средства защиты растений купить в Украине) или ([название компании] – [категория товаров] купить в Украине).\nПример 1: ACTAGRO — жидкие органо-минеральные удобрения | Купить в Украине\nПример 2: Adama – средства защиты растений | Купить в Украине\nПример 3: Агро Дельта - протравители компании | Купить в Украине\nПример 4: Sakura – семена и удобрения японской компании | Купить в Украине\n\nДля всех остальных категорий товаров ([название компании] – [ключевая категория] | Купить в Украине).\n\nПример: Agreen — агроволокно и укрывные материалы | Купить в Украине\n\nНе используй дважны название компании.\n\nMeta Description: Описание, которое мотивирует клик: укажи преимущества бренда, ассортимент, доставку. Включи ключевые слова естественно. Длина: 150-160 символов.\n\nПример 1: Жидкие органо-минеральные удобрения ACTAGRO для повышения урожайности. Оригинальная продукция, цены от поставщика, доставка по Украине.\n\nПример 2: Производитель ACTAGRO: жидкие органо-минеральные удобрения для овощей, зерновых и садов. Каталог, характеристики, применение.\n\nПример 3: Семена Clause (Клоз) — профессиональная селекция из Франции. Гибриды овощей для высокой урожайности. Цены, каталог, доставка по Украине.\n\nПример 4: Производитель Clause (Франция): семена и гибриды овощных культур для фермеров и теплиц. Характеристики, применение, ассортимент.\n\nПример 5: Семена цветов Benary — профессиональная селекция из Германии. Однолетние и многолетние цветы, высокая всхожесть, доставка по Украине.\n\nПример 6: Агроволокно Agreen для защиты растений от заморозков и сорняков. Разные плотности и размеры, цены от поставщика, доставка по Украине.\n\nУбедись, что мета-теги ориентированы на коммерческие запросы, такие как \"купить семена [компании]\", \"СЗР [компании]\", \"удобрения [компании]\". Избегай переспама ключевыми словами, делай текст естественным и привлекательным для пользователей. \n\nПосле генерации текста сделай качественный перевод всего теста на украинский язык.",
+        "options": {
+          "systemMessage": "=Ты — SEO-специалист с глубокими знаниями в поисковой оптимизации, включая on-page SEO. Ты пишешь тексты для интернет-магазина по продаже семян овощей, цветов, агрохимии, и сопутствующих товаров. \n\nТвоя задача — создать 100% уникальное, SEO-оптимизированное описание для страниц производителей интернет магазина. Текст должен ранжироваться в 2026-2030 году и попадать в Google AI Overview, Featured Snippet и ответы GPT-моделей.\n\nТекст должен полностью соответствовать требованиям Google Helpful Content, EEAT, AI Overviews и интенту транзакционных запросов. По тексту 1-3 раза примени переданные мной ключевые слова, один раз в точном соответствии, остальные можно склонять, делать с разрывом. Также подбери подходящие LSI фразы.\n\nИспользуй естественный, убедительный язык, интегрируй релевантные ключевые слова органично, делай текст полезным и ориентированным на читателя.\n\nОТВЕТЬ ИСКЛЮЧИТЕЛЬНО одним валидным JSON-объектом в следующем формате:\n\n{\n  \"ru\": \"структурированный текст где заголовки, параграфы и списки обернуты в HTML теги h2 и h3, p, ul, li. Вывод должен быть чисты, без лишних тегов и символов, подготовленный для вставки в БД, запрещено использовать символы переноса строк\",\n  \"ua\": \"Полный переведенный текст на укрианский язык, с сохранением всей структуры и HTML разметки\",\n  \"meta_title_ru\": \"Текст meta title на русском\",\n  \"meta_description_ru\": \"Текст meta description на русском\",\n  \"meta_title_ua\": \"Перевод текста meta title на украинском\",\n  \"meta_description_ua\": \"Перевод текста meta description на украинском\"\n}\n\nОтвет должен быть ТОЛЬКО JSON, без markdown-обёрток вроде ```json, без преамбулы и пост-текста. JSON должен быть валидным и парсируемым."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        688,
+        -544
+      ],
+      "id": "190049e3-1031-4db0-94d4-a15eea0c1ea9",
+      "name": "Готовый AI Производитель"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appkQQyOWkW17zrUz",
+          "mode": "list",
+          "cachedResultName": "Semena.cc",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbleTqK4OwnTCsOq5",
+          "mode": "list",
+          "cachedResultName": "Manufacturer",
+          "cachedResultUrl": "https://airtable.com/appkQQyOWkW17zrUz/tbleTqK4OwnTCsOq5"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "In progress",
+            "manufacturer_id": "={{ $json.manufacturer_id }}"
+          },
+          "matchingColumns": [
+            "manufacturer_id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "manufacturer_id",
+              "displayName": "manufacturer_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "keywords",
+              "displayName": "keywords",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "link",
+              "displayName": "link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Text",
+              "displayName": "Text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Text_ua",
+              "displayName": "Text_ua",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Todo",
+                  "value": "Todo"
+                },
+                {
+                  "name": "In progress",
+                  "value": "In progress"
+                },
+                {
+                  "name": "Done",
+                  "value": "Done"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Success",
+              "displayName": "Success",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Success",
+                  "value": "Success"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Error_message",
+              "displayName": "Error_message",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "semenacc_link",
+              "displayName": "semenacc_link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -160,
+        -288
+      ],
+      "id": "61e3a598-68d3-4ae6-bcca-5e29b81f59fd",
+      "name": "Update record2",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "ebsdPc0yHdNJ8JBm",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7caef5e2-f865-4579-9d26-00ff2da416f4",
+              "leftValue": "={{ $json.fields.Status }}",
+              "rightValue": "In progress",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -16,
+        -288
+      ],
+      "id": "8649006d-c8b4-4bb4-96b9-b2f024492c1b",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        224,
+        -544
+      ],
+      "id": "22833ec3-3547-4c75-9713-8af9714f076f",
+      "name": "Loop Over Items",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        32,
+        -544
+      ],
+      "id": "be314eb1-7f61-48ee-8d8a-f7c745049060",
+      "name": "Wait1",
+      "webhookId": "dcaeffad-3294-434d-9b5b-760fe420388a"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9df0f5df-4760-42f1-9078-479981da5a4f",
+              "name": "fields.manufacturer_id",
+              "value": "={{ $json.fields.manufacturer_id }}",
+              "type": "number"
+            },
+            {
+              "id": "a8fff3c8-ea03-4549-9ebd-4cf7a3427b38",
+              "name": "fields.keywords",
+              "value": "={{ $json.fields.keywords }}",
+              "type": "string"
+            },
+            {
+              "id": "d2fa2d30-9dda-4744-8a39-fd25a52f3fee",
+              "name": "fields.name",
+              "value": "={{ $json.fields.name }}",
+              "type": "string"
+            },
+            {
+              "id": "4ca9bfda-782d-4778-8107-99dc9d232623",
+              "name": "fields.link",
+              "value": "={{ $json.fields.link }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        496,
+        -544
+      ],
+      "id": "c1f463fe-ab7e-4667-a705-53f49833309b",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://semena.loc/module/productdescriptionai/update",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\n\t\"category_id\": \"{{ $json.fields.manufacturer_id }}\",\n\t\"text\": {\n\t\t\"ru\": \"{{ $json.fields.Text }}\",\n\t\t\"ua\": \"{{ $json.fields.Text_ua }}\"\n\t}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1376,
+        -960
+      ],
+      "id": "4391149f-f593-4751-b75b-cc584014f221",
+      "name": "HTTP Test",
+      "notesInFlow": false,
+      "alwaysOutputData": false,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Search in Table Category",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update record": {
+      "main": [
+        []
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read URL content in Jina AI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Update record1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Готовый AI Производитель",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read URL content in Jina AI1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Готовый AI Производитель",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update record1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Тест ИИ",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search in Table Category": {
+      "main": [
+        [
+          {
+            "node": "Update record2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Тест ИИ": {
+      "main": [
+        []
+      ]
+    },
+    "Error": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Success": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Готовый AI Производитель": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update record2": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Готовый AI Производитель",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Test": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e8d6047e-5614-42f1-af78-df8c563004d2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "12bed62275b8d1fc61b749789e292d4b03d3ad9b1c5b2243c7ef2a7262e260fe"
+  },
+  "id": "zpz3lPiF4tFxCvKW",
+  "tags": []
+}
